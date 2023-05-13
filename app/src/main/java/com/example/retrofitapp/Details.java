@@ -1,6 +1,6 @@
 package com.example.retrofitapp;
 
-public class Movie {
+public class Details {
     private String id;
     private String name;
     private String image;

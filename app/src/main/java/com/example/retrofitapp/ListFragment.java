@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,19 +27,19 @@ public class ListFragment extends Fragment implements ItemClickListener {
 
     View view;
     RecyclerView recyclerView;
-    List<Results> movieList;
-    Button sortlth;
-    Button sorthtl;
+    List<Results> details;
+    TextView sortlth;
+    TextView sorthtl;
 
-    Button sortdatelth;
-    Button sortdatehtl;
+    TextView sortdatelth;
+    TextView sortdatehtl;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_list, container, false);
         recyclerView = view.findViewById(R.id.recyclerview);
-        movieList = new ArrayList<>();
+        details = new ArrayList<>();
         sortlth = view.findViewById(R.id.lth);
         sorthtl = view.findViewById(R.id.htl);
 
@@ -51,8 +52,8 @@ public class ListFragment extends Fragment implements ItemClickListener {
                 .build();
 
 
-        MovieApi movieApi = retrofit.create(MovieApi.class);
-        Call<Response> call = movieApi.getMovies();
+        Api api = retrofit.create(Api.class);
+        Call<Response> call = api.getDetails();
 
         call.enqueue(new Callback<Response>() {
             @Override
@@ -63,14 +64,13 @@ public class ListFragment extends Fragment implements ItemClickListener {
                     return;
                 }
 
-                com.example.retrofitapp.Response movies = response.body();
+                com.example.retrofitapp.Response r = response.body();
 
-                movieList = movies.results;
+                details = r.results;
 
-                putDataIntoRecyclerView(movies.results);
+                putDataIntoRecyclerView(r.results);
 
             }
-
 
             @Override
             public void onFailure(Call<com.example.retrofitapp.Response> call, Throwable t) {
@@ -81,65 +81,65 @@ public class ListFragment extends Fragment implements ItemClickListener {
         sortlth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for(int i=0;i<movieList.size();i++) {
-                    for (int j = i + 1; j < movieList.size(); j++) {
-                        String a1 = movieList.get(i).getPrice().replace("AED ","");
-                        String a2 = movieList.get(j).getPrice().replace("AED ","");
+                for(int i=0;i<details.size();i++) {
+                    for (int j = i + 1; j < details.size(); j++) {
+                        String a1 = details.get(i).getPrice().replace("AED ","");
+                        String a2 = details.get(j).getPrice().replace("AED ","");
                         if (Integer.parseInt(a1) > Integer.parseInt(a2)) {
-                            Results temp1 = movieList.get(i);
-                            Results temp2 = movieList.get(j);
-                            movieList.set(i, temp2);
-                            movieList.set(j, temp1);
+                            Results temp1 = details.get(i);
+                            Results temp2 = details.get(j);
+                            details.set(i, temp2);
+                            details.set(j, temp1);
                         }
                     }
                 }
-                putDataIntoRecyclerView(movieList);
+                putDataIntoRecyclerView(details);
             }
         });
 
         sorthtl.setOnClickListener((new View.OnClickListener(){
 
             public void onClick(View view) {
-                for(int i=0;i<movieList.size();i++) {
-                    for (int j = i + 1; j < movieList.size(); j++) {
-                        String a1 = movieList.get(i).getPrice().replace("AED ","");
-                        String a2 = movieList.get(j).getPrice().replace("AED ","");
+                for(int i=0;i<details.size();i++) {
+                    for (int j = i + 1; j < details.size(); j++) {
+                        String a1 = details.get(i).getPrice().replace("AED ","");
+                        String a2 = details.get(j).getPrice().replace("AED ","");
                         if (Integer.parseInt(a1) < Integer.parseInt(a2)) {
-                            Results temp1 = movieList.get(i);
-                            Results temp2 = movieList.get(j);
-                            movieList.set(i, temp2);
-                            movieList.set(j, temp1);
+                            Results temp1 = details.get(i);
+                            Results temp2 = details.get(j);
+                            details.set(i, temp2);
+                            details.set(j, temp1);
                         }
                     }
                 }
-                putDataIntoRecyclerView(movieList);
+                putDataIntoRecyclerView(details);
             }
         }));
 
         sortdatelth.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view)
             {
-                Collections.sort(movieList, new Comparator<Results>() {
+                Collections.sort(details, new Comparator<Results>() {
                     @Override
                     public int compare(Results m1, Results m2) {
                         return m1.getCreatedAt().compareTo(m2.getCreatedAt());
                     }
                 });
-                putDataIntoRecyclerView(movieList);
+                putDataIntoRecyclerView(details);
             }
         });
 
         sortdatehtl.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view)
             {
-                Collections.sort(movieList, new Comparator<Results>() {
+                Collections.sort(details, new Comparator<Results>() {
                     @Override
                     public int compare(Results m1, Results m2) {
                         return m1.getCreatedAt().compareTo(m2.getCreatedAt());
                     }
                 });
-                Collections.reverse(movieList);
-                putDataIntoRecyclerView(movieList);
+                Collections.reverse(details);
+                putDataIntoRecyclerView(details);
             }
         });
 
@@ -147,9 +147,9 @@ public class ListFragment extends Fragment implements ItemClickListener {
         return view;
     }
 
-    private void putDataIntoRecyclerView(List<Results> movieList)
+    private void putDataIntoRecyclerView(List<Results> details)
     {
-        Adaptery adaptery = new Adaptery(getActivity(), movieList,this );
+        Adaptery adaptery = new Adaptery(getActivity(), details,this );
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adaptery);
     }

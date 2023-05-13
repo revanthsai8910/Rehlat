@@ -9,22 +9,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
 import java.util.List;
-import java.util.zip.Inflater;
 
 public class Adaptery extends RecyclerView.Adapter<Adaptery.MyViewHolder> {
     private Context mContext;
-    private List<Results> moviesList;
+    private List<Results> details;
     private ItemClickListener clickListener;
 
-    public Adaptery(Context mContext, List<Results> moviesList, ItemClickListener itemClickListener) {
+    public Adaptery(Context mContext, List<Results> details, ItemClickListener itemClickListener) {
         this.mContext = mContext;
-        this.moviesList = moviesList;
+        this.details = details;
         this.clickListener = itemClickListener;
     }
 
@@ -34,25 +32,25 @@ public class Adaptery extends RecyclerView.Adapter<Adaptery.MyViewHolder> {
 
         View v;
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-        v = layoutInflater.inflate(R.layout.movie_item, parent, false);
+        v = layoutInflater.inflate(R.layout.each_item, parent, false);
         return new MyViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        holder.id.setText(moviesList.get(position).getPrice());
-        holder.title.setText(moviesList.get(position).getName());
+        holder.id.setText(details.get(position).getPrice());
+        holder.title.setText(details.get(position).getName());
 
         //Adding glide library to display images (for quick and efficient image loading)
         Glide.with(mContext)
-                .load(moviesList.get(position).getImageUrlsThumbnails().get(0))
+                .load(details.get(position).getImageUrlsThumbnails().get(0))
                 .into(holder.img);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clickListener.onItemClick(moviesList.get(position));
+                clickListener.onItemClick(details.get(position));
 
 
             }
@@ -62,7 +60,7 @@ public class Adaptery extends RecyclerView.Adapter<Adaptery.MyViewHolder> {
 
     @Override
     public int getItemCount() {
-        return moviesList.size();
+        return details.size();
     }
 
 

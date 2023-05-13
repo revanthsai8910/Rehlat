@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="10dp">
 
     <TextView
         android:id="@+id/button2"
@@ -13,33 +14,37 @@
         android:layout_marginEnd="102dp"
         android:layout_marginBottom="16dp"
         android:text="Price"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
-    <Button
+    <TextView
         android:id="@+id/htl"
-        android:layout_width="34dp"
+        android:layout_width="wrap_content"
         android:layout_height="26dp"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="35dp"
         android:layout_marginEnd="61dp"
         android:layout_marginBottom="13dp"
-        android:background="@android:color/white"
-        android:text="↑"
-        android:textColor="@android:color/black"
-        android:textSize="20dp" />
+        android:background="@color/design_default_color_primary_dark"
+        android:text="HIGH"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:textColor="@android:color/white"
+        android:textSize="14sp" />
 
-    <Button
+    <TextView
         android:id="@+id/lth"
-        android:layout_width="34dp"
+        android:layout_width="wrap_content"
         android:layout_height="26dp"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="35dp"
         android:layout_marginEnd="110dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:layout_marginBottom="12dp"
-        android:background="@android:color/white"
-        android:text="↑"
-        android:textColor="@android:color/black"
-        android:textSize="20dp" />
+        android:textColor="@color/white"
+        android:background="@color/design_default_color_primary_dark"
+        android:text="LOW"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/button3"
@@ -52,35 +57,39 @@
         android:layout_marginBottom="16dp"
         android:text="Date"
         android:layout_below="@+id/button2"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
-    <Button
+    <TextView
         android:id="@+id/datehtl"
-        android:layout_width="34dp"
+        android:layout_width="wrap_content"
         android:layout_height="26dp"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="35dp"
         android:layout_marginEnd="61dp"
         android:layout_marginBottom="13dp"
-        android:background="@android:color/white"
-        android:text="↑"
+        android:background="@color/design_default_color_primary_dark"
+        android:text="HIGH"
         android:layout_below="@+id/button2"
-        android:textColor="@android:color/black"
-        android:textSize="20dp" />
+        android:textColor="@android:color/white"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:textSize="14sp" />
 
-    <Button
+    <TextView
         android:id="@+id/datelth"
-        android:layout_width="34dp"
+        android:layout_width="wrap_content"
         android:layout_height="26dp"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="35dp"
         android:layout_marginEnd="110dp"
         android:layout_marginBottom="12dp"
-        android:background="@android:color/white"
-        android:text="↑"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:background="@color/design_default_color_primary_dark"
+        android:text="LOW"
         android:layout_below="@+id/button2"
-        android:textColor="@android:color/black"
-        android:textSize="20dp" />
+        android:textColor="@android:color/white"
+        android:textSize="14sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"

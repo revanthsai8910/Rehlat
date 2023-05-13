@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    List<Movie> movieList;
+    List<Details> details;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
